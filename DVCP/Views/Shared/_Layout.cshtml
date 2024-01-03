@@ -1,0 +1,173 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - HutechNews</title>
+    <link rel="icon" href="~/Content/web/images/logoht.png" type="image/x-icon" />
+    <link href="~/Content/web/styles.css" rel="stylesheet" />
+    <link href="~/Content/web/web.css" rel="stylesheet" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="@ViewBag.Title" />
+    <meta property="og:description" content="@ViewBag.Description" />
+    <meta property="og:image" content="@ViewBag.Image" />
+    <meta name="Description" content="@ViewBag.Description" />
+    <meta name="keywords" content="@ViewBag.Tag">
+
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css?family=Encode+Sans+Expanded:400,600,700" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/Content/AdminLTE/plugins/font-awesome/css/font-awesome.min.css">
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="//fonts.googleapis.com/css?family=Merriweather:400,700%7CDroid+Serif:400,700" rel="stylesheet" type="text/css">
+    @* @Scripts.Render("~/bundles/modernizr")*@
+    @{
+        GetData data = new GetData();
+    }
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+<body>
+    <header>
+        <div class="bg-191">
+            <div class="container">
+                <div class="oflow-hidden color-ash font-9 text-sm-center ptb-sm-5">
+
+                    <ul class="float-left list-a-plr-10 list-a-plr-sm-5 list-a-ptb-15 list-a-ptb-sm-10 toplink">
+                        <li><a class="pl-0 pl-sm-10" href="">@DateTime.Now</a></li>
+                        <li><a href="https://www.facebook.com/profile.php?id=100069792041010">Liên hệ</a></li>
+                        @if (Request.IsAuthenticated)
+                        {
+                            <li>@Html.ActionLink("Admin Panel", "Index", "Admin", null, new { @class = "nav-link" })</li>
+                            <li>@Html.ActionLink("Logout", "Logout", "User", null, new { @class = "nav-link" })</li>
+                        }
+                    </ul>
+                    <div class="d-inline-block float-right mt-2 mr-4">
+                        <form action="/tim-kiem" method="get">
+                            <input type="text" name="title" placeholder="Tìm kiếm" class="mr-2 txtSearch" /><button class="text-white" type="submit"><i class="fa fa-search"></i></button>
+                            <a href="User/Login" id="userLink">
+                                <i class="material-icons" href="User\Login">person</i>
+                            </a>                           
+                        </form>
+                    </div>
+                    @*<ul class="float-right float-sm-none list-a-plr-10 list-a-plr-sm-5 list-a-ptb-15 list-a-ptb-sm-5">
+                            <li><a class="pl-0 pl-sm-10" href="#"><i class="fa fa-facebook-official"></i></a></li>
+
+                            <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                        </ul>*@
+                </div>
+            </div>
+            <!-- container -->
+        </div>
+
+        <div class="container back-white">
+            <a class="logo" href="/"><img src="~/Content/web/images/logoht.png" alt="Logo"></a>
+
+
+            <a class="menu-nav-icon" data-menu="#main-menu" href="#"><i class="ion-navicon"></i></a>
+
+            <ul class="main-menu2 link" id="main-menu">
+                <li><a href="/">HOME</a></li>
+                <li class="drop-down">
+                    <a href="/danh-muc/">Kinh Doanh<i class="fa fa-caret-down"></i></a>
+                    <ul class="drop-down-menu drop-down-inner">
+                        <li><a href="/Category/Quocte">Quốc tế</a></li>
+                        <li><a href="/Category/Doanhnghiep">Doanh Nghiệp</a></li>
+                        <li><a href="/Category/Tenis">Chứng khoán</a></li>
+
+                    </ul>
+                </li>
+                <li class="drop-down">
+                    <a href="/danh-muc/">Thời sự<i class="fa fa-caret-down"></i></a>
+                    <ul class="drop-down-menu drop-down-inner">
+                        <li><a href="/Category/Dansinh">Dân sinh</a></li>
+                        <li><a href="/Category/Giaothong">Giao thông</a></li>
+                        <li><a href="/Category/LDVL">Lao động - việc làm</a></li>
+                     
+                    </ul>
+                </li>
+                <li class="drop-down">
+                    <a href="/danh-muc/">Thể thao<i class="fa fa-caret-down"></i></a>
+                    <ul class="drop-down-menu drop-down-inner">
+                        <li><a href="/Home/Bongda">Bóng đá</a></li>
+                        <li><a href="/Home/Tracnghiem">Trắc nghiệm</a></li>
+                        <li><a href="/Home/Tenis">Tenis</a></li>
+                        <li><a href="/Home/Bunesliga">Bunesliga</a></li>
+                        <li><a href="/Home/Cacmonkhac">Các môn khác</a></li>
+                    </ul>
+                </li>
+                <li><a href="/tim-kiem">Tìm theo thể loại</a></li>
+
+            </ul>
+
+            <div class="clearfix"></div>
+        </div><!-- container -->
+    </header>
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+    <footer class="bg-191 color-ccc">
+
+        <div class="container">
+            <div class="pt-50 pb-20 pos-relative">
+                <div class="abs-tblr pt-50 z--1 text-center">
+                    @*<div class="h-80 pos-relative"><img class="opacty-1 h-100 w-auto" src="~/Content/web/images/map.png" alt=""></div>*@
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="mb-30">
+                            <h5 class="color-primary mb-20"><b>FACEBOOK</b></h5>
+                            <div class="fb-page" data-href="https://www.facebook.com/hutechuniversity/" data-tabs="timeline" data-width="" data-height="300" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/daivietcophong/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/daivietcophong/">Đại Việt Cổ Phong - 大越古風 - VietnamAncient</a></blockquote></div>
+                        </div><!-- mb-30 -->
+                    </div><!-- col-md-4 -->
+
+
+                    <div class="col-sm-4">
+                        <div class="mb-30">
+                            <h5 class="color-primary mb-20"><b>ĐỀ XUẤT CAO</b></h5>
+                            
+
+
+
+                        </div><!-- mb-30 -->
+                    </div><!-- col-md-4 -->
+                    <div class="col-sm-4">
+                        <div class="mb-30">
+                            <a href="#"><img src="~/Content/web/images/logoht.png"></a>
+                            <p class="mtb-20 color-ccc">
+                                Trang tin tức của Hutech.
+                            </p>
+                            <p class="color-ash">
+                                Copyright &copy;
+                                <script>document.write(new Date().getFullYear());</script> 
+
+                            </p>
+                        </div><!-- mb-30 -->
+                    </div><!-- col-md-4 -->
+
+
+                </div><!-- row -->
+            </div><!-- ptb-50 -->
+
+            <div class="brdr-ash-1 opacty-2"></div>
+
+            <div class="oflow-hidden color-ash font-9 text-sm-center ptb-sm-5">
+
+               
+
+            </div>
+        </div>
+    </footer>
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v3.3"></script>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Content/web/tether.min.js"></script>
+    <script src="~/Content/web/scripts.js"></script>
+    <script src="~/Content/photoswipe/init.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>
